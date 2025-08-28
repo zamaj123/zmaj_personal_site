@@ -3,8 +3,10 @@ import { motion } from 'framer-motion'
 import { Mail, Linkedin, ExternalLink, ArrowRight, Menu, X, Download, MapPin } from 'lucide-react'
 
 const withBase = (p) => {
-  const clean = p.replace(/^\/+/, '');   // remove leading slash
-  return new URL(clean, import.meta.env.BASE_URL).pathname;
+  const base = import.meta.env.BASE_URL || '/'; // '/' in dev, '/zmaj_personal_site/' in prod
+  const cleanBase = base.endsWith('/') ? base : base + '/';
+  const cleanPath = String(p).replace(/^\/+/, ''); // strip leading '/'
+  return cleanBase + cleanPath;
 };
 
 const SITE = {
@@ -16,7 +18,7 @@ const SITE = {
   socials: {
     linkedin: 'https://www.linkedin.com/in/zain-majumder/'
   },
-  resumeUrl: new URL('resume.pdf', import.meta.env.BASE_URL).pathname
+  resumeUrl: withBase('resume.pdf')
 }
 
 const HIGHLIGHTS = [

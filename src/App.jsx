@@ -2,6 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Linkedin, ExternalLink, ArrowRight, Menu, X, Download, MapPin } from 'lucide-react'
 
+const withBase = (p) => {
+  const clean = p.replace(/^\/+/, '');   // remove leading slash
+  return new URL(clean, import.meta.env.BASE_URL).pathname;
+};
+
 const SITE = {
   name: 'Zain Majumder',
   role: 'Software Developer',
@@ -11,7 +16,7 @@ const SITE = {
   socials: {
     linkedin: 'https://www.linkedin.com/in/zain-majumder/'
   },
-  resumeUrl: '/resume.pdf'
+  resumeUrl: new URL('resume.pdf', import.meta.env.BASE_URL).pathname
 }
 
 const HIGHLIGHTS = [
@@ -192,7 +197,7 @@ function Hero() {
             <div className='h-64 w-64 rounded-2xl bg-gradient-to-br from-indigo-500 via-sky-500 to-cyan-400 p-1 shadow-lg md:ml-auto md:h-80 md:w-80'>
               <div className='flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-white'>
                 <img
-                  src='/hero-img.jpg'
+                  src={withBase('hero-img.jpg')}
                   alt='An image of me by the water in Abu Dhabi.'
                   className='h-full w-full object-cover'
                 />
@@ -219,7 +224,7 @@ function Highlights() {
               <figure className='w-full'>
                 <div className='relative aspect-[21/9] w-full sm:aspect-[16/6] md:aspect-[16/5]'>
                   <img
-                    src={p.image}
+                    src={withBase(p.image)}
                     alt={p.title}
                     loading='lazy'
                     className='absolute inset-0 h-full w-full object-cover'

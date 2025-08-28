@@ -407,6 +407,10 @@ function Footer() {
 }
 
 export default function PersonalSite() {
+  React.useEffect(() => {
+    console.log('BASE_URL =', import.meta.env.BASE_URL);
+  }, []);
+
   return (
     <div className='min-h-screen bg-white text-zinc-900 antialiased'>
       <NavBar/>
